@@ -1,0 +1,31 @@
+{
+  "name": "solid-principles-with-typescipt",
+  "version": "1.0.0",
+  "description": "This is the repository for my code-kata from the Pluralsight course [*SOLID Principles for C# Developers*](https://app.pluralsight.com/library/courses/csharp-solid-principles).",
+  "main": "app.ts",
+  "scripts": {
+    "comp": "tsc",
+    "comp:watch": "tsc --watch",
+    "start": "node ./js/app.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DilanUse/SOLID-Principles-With-Typescipt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DilanUse/SOLID-Principles-With-Typescipt/issues"
+  },
+  "homepage": "https://github.com/DilanUse/SOLID-Principles-With-Typescipt#readme",
+  "dependencies": {
+    "moment": "^2.29.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.3"
+  }
+}

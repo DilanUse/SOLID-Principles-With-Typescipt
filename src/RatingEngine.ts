@@ -1,32 +1,34 @@
 import moment from 'moment';
-import policyJson from './policy.json';
 import { Policy } from './Policy';
 import PolicyType from './PolicyType';
+import ConsoleLogger from'./ConsoleLogger';
+import FilePolicySource from './FilePolicySource'
+import JsonPolicySerializer from './JsonPolicySerializer';
 
 export default class RatingEngine
 {
-    public Rating: number;
+    public Rating: number = 0;
+    public Logger: ConsoleLogger = new ConsoleLogger();
+    public PolicySource: FilePolicySource = new FilePolicySource();
+    public PolicySerializer: JsonPolicySerializer = new JsonPolicySerializer();
 
     public Rate(): void
     {
-        console.log("Starting rate.");
+        this.Logger.Log("Starting rate.");
+        this.Logger.Log("Loading policy.");
 
-        console.log("Loading policy.");
-        const policy: Policy = Object.assign(new Policy(), {
-            Type: PolicyType[policyJson.type],
-            Valuation: Number(policyJson.valuation),
-            BondAmount: Number(policyJson.bondAmount),
-        });
+        const policyJson = this.PolicySource.GetPolicyFromSource();
+        const policy: Policy = this.PolicySerializer.GetPolicyFromJsonString(policyJson);
 
         switch (policy.Type)
         {
             case PolicyType.Auto:
-                console.log("Rating AUTO policy...");
-                console.log("Validating policy.");
+                this.Logger.Log("Rating AUTO policy...");
+                this.Logger.Log("Validating policy.");
 
                 if (policy.Make)
                 {
-                    console.log("Auto policy must specify Make");
+                    this.Logger.Log("Auto policy must specify Make");
                     return;
                 }
                 if (policy.Make == "BMW")
@@ -40,17 +42,17 @@ export default class RatingEngine
                 break;
 
             case PolicyType.Land:
-                console.log("Rating LAND policy...");
-                console.log("Validating policy.");
+                this.Logger.Log("Rating LAND policy...");
+                this.Logger.Log("Validating policy.");
 
                 if (policy.BondAmount == 0 || policy.Valuation == 0)
                 {
-                    console.log("Land policy must specify Bond Amount and Valuation.");
+                    this.Logger.Log("Land policy must specify Bond Amount and Valuation.");
                     return;
                 }
                 if (policy.BondAmount < (0.8 * policy.Valuation))
                 {
-                    console.log("Insufficient bond amount.");
+                    this.Logger.Log("Insufficient bond amount.");
                     return;
                 }
 
@@ -58,23 +60,23 @@ export default class RatingEngine
                 break;
 
             case PolicyType.Life:
-                console.log("Rating LIFE policy...");
-                console.log("Validating policy.");
+                this.Logger.Log("Rating LIFE policy...");
+                this.Logger.Log("Validating policy.");
                 if (policy.DateOfBirth)
                 {
-                    console.log("Life policy must include Date of Birth.");
+                    this.Logger.Log("Life policy must include Date of Birth.");
                     return;
                 }
 
                 if (policy.DateOfBirth < moment().subtract(100, 'days').toDate())
                 {
-                    console.log("Centenarians are not eligible for coverage.");
+                    this.Logger.Log("Centenarians are not eligible for coverage.");
                     return;
                 }
 
                 if (policy.Amount == 0)
                 {
-                    console.log("Life policy must include an Amount.");
+                    this.Logger.Log("Life policy must include an Amount.");
                     return;
                 }
 
@@ -99,10 +101,10 @@ export default class RatingEngine
                 break;
 
             default:
-                console.log("Unknown policy type");
+                this.Logger.Log("Unknown policy type");
                 break;
         }
 
-        console.log("Rating completed.");
+        this.Logger.Log("Rating completed.");
     }
 }

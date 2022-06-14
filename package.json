@@ -20,10 +20,14 @@
   },
   "homepage": "https://github.com/DilanUse/SOLID-Principles-With-Typescipt#readme",
   "dependencies": {
-    "moment": "^2.29.3"
+    "class-transformer": "^0.5.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.3",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
+    "@types/lodash": "^4.14.182",
     "jest": "^28.1.1",
     "ts-jest": "^28.0.5",
     "typescript": "^4.7.3"

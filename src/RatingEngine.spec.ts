@@ -2,7 +2,7 @@ import fs from 'fs';
 import { Policy } from './Policy';
 import PolicyType from './PolicyType';
 import RatingEngine from './RatingEngine';
-import * as assert from 'assert';
+import JsonPolicySerializer from './JsonPolicySerializer';
 
 describe('Test rating land policies', () => {
     it('Returns Rating Of 10000 For 200000 LandPolicy', () => {
@@ -12,8 +12,9 @@ describe('Test rating land policies', () => {
             Valuation: 200000
         };
 
-        const json: string = JSON.stringify(policy);
-        fs.writeFileSync('policy.json', json);
+        const policySerializer = new JsonPolicySerializer();
+        const json: string = policySerializer.SerializePolicyToJson(policy);
+        fs.writeFileSync('assets/policy.json', json);
 
         const engine = new RatingEngine();
         engine.Rate();
@@ -29,8 +30,9 @@ describe('Test rating land policies', () => {
             Valuation: 260000
         };
 
-        const json: string = JSON.stringify(policy);
-        fs.writeFileSync('policy.json', json);
+        const policySerializer = new JsonPolicySerializer();
+        const json: string = policySerializer.SerializePolicyToJson(policy);
+        fs.writeFileSync('assets/policy.json', json);
 
         const engine = new RatingEngine();
         engine.Rate();

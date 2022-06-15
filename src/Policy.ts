@@ -15,6 +15,9 @@ class Policy {
     public Valuation?: number;
     public BondAmount?: number;
 
+    // Flood In Addition To Land
+    public ElevationAboveSeaLevelFeet?: number;
+
     // Auto
     public Make?: string;
     public Model?: string;

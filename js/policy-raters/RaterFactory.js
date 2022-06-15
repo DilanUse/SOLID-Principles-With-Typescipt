@@ -20,7 +20,6 @@ class RaterFactory {
             return new raters[`${PolicyType_1.default[policy.Type]}PolicyRater`](engine, engine.Logger);
         }
         catch (e) {
-            console.log(e);
             return null;
         }
     }

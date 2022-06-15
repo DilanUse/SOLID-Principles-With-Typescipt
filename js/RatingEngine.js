@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ConsoleLogger_1 = __importDefault(require("./ConsoleLogger"));
 const FilePolicySource_1 = __importDefault(require("./FilePolicySource"));
 const JsonPolicySerializer_1 = __importDefault(require("./JsonPolicySerializer"));
-const RaterFactory_1 = __importDefault(require("./policies/RaterFactory"));
+const RaterFactory_1 = __importDefault(require("./policy-raters/RaterFactory"));
 class RatingEngine {
     constructor() {
         this.Rating = 0;

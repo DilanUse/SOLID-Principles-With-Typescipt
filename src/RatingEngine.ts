@@ -4,10 +4,10 @@ import PolicyType from './PolicyType';
 import ConsoleLogger from'./ConsoleLogger';
 import FilePolicySource from './FilePolicySource'
 import JsonPolicySerializer from './JsonPolicySerializer';
-import AutoPolicyRater from './policies/AutoPolicyRater';
-import LandPolicyRater from './policies/LandPolicyRater';
-import LifePolicyRater from './policies/LifePolicyRater';
-import RaterFactory from './policies/RaterFactory';
+import AutoPolicyRater from './policy-raters/AutoPolicyRater';
+import LandPolicyRater from './policy-raters/LandPolicyRater';
+import LifePolicyRater from './policy-raters/LifePolicyRater';
+import RaterFactory from './policy-raters/RaterFactory';
 
 export default class RatingEngine
 {

@@ -1,14 +1,15 @@
 import RatingEngine from '../RatingEngine';
 import ConsoleLogger from '../ConsoleLogger';
 import { Policy } from '../Policy';
+import ILogger from '../ILogger';
+import IRatingUpdater from '../IRatingUpdater';
 
 export default abstract class Rater {
-    protected readonly _engine: RatingEngine;
-    protected readonly _logger: ConsoleLogger;
+    protected readonly _ratingUpdater: IRatingUpdater;
+    public Logger: ILogger = new ConsoleLogger();
 
-    protected constructor(engine: RatingEngine, logger: ConsoleLogger) {
-        this._engine = engine;
-        this._logger= logger;
+    protected constructor(ratingUpdater: IRatingUpdater ) {
+        this._ratingUpdater = ratingUpdater;
     }
 
     public abstract Rate(policy: Policy): void;

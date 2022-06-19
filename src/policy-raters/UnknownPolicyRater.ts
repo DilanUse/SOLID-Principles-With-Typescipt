@@ -1,14 +1,13 @@
 import Rater from './Rater';
-import RatingEngine from '../RatingEngine';
-import ConsoleLogger from '../ConsoleLogger';
 import { Policy } from '../Policy';
+import IRatingUpdater from '../IRatingUpdater';
 
 export default class UnknownPolicyRater extends Rater {
-    public constructor(engine: RatingEngine, logger: ConsoleLogger) {
-        super(engine, logger)
+    public constructor(ratingUpdater: IRatingUpdater) {
+        super(ratingUpdater)
     }
 
     public override Rate(policy: Policy): void {
-        this._logger.Log('Unknown policy type');
+        this.Logger.Log('Unknown policy type');
     }
 }

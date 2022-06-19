@@ -1,32 +1,32 @@
-import RatingEngine from '../RatingEngine';
-import ConsoleLogger from '../ConsoleLogger';
 import { Policy } from '../Policy';
 import moment from 'moment';
 import Rater from './Rater';
+import IRatingUpdater from '../IRatingUpdater';
 
 export default class LifePolicyRater extends Rater{
-    public constructor(engine: RatingEngine, logger: ConsoleLogger) {
-        super(engine, logger)
+    public constructor(ratingUpdater: IRatingUpdater) {
+        super(ratingUpdater)
     }
 
     public override Rate(policy: Policy): void {
-        this._logger.Log("Rating LIFE policy...");
-        this._logger.Log("Validating policy.");
+        this.Logger.Log("Rating LIFE policy...");
+        this.Logger.Log("Validating policy.");
+
         if (policy.DateOfBirth)
         {
-            this._logger.Log("Life policy must include Date of Birth.");
+            this.Logger.Log("Life policy must include Date of Birth.");
             return;
         }
 
         if (policy.DateOfBirth < moment().subtract(100, 'days').toDate())
         {
-            this._logger.Log("Centenarians are not eligible for coverage.");
+            this.Logger.Log("Centenarians are not eligible for coverage.");
             return;
         }
 
         if (policy.Amount == 0)
         {
-            this._logger.Log("Life policy must include an Amount.");
+            this.Logger.Log("Life policy must include an Amount.");
             return;
         }
 
@@ -43,10 +43,10 @@ export default class LifePolicyRater extends Rater{
 
         if (policy.IsSmoker)
         {
-            this._engine.Rating = baseRate * 2;
+            this._ratingUpdater.UpdateRating(baseRate * 2);
             return;
         }
 
-        this._engine.Rating = baseRate;
+        this._ratingUpdater.UpdateRating(baseRate);
     }
 }

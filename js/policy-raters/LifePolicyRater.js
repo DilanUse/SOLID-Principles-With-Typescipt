@@ -6,22 +6,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const moment_1 = __importDefault(require("moment"));
 const Rater_1 = __importDefault(require("./Rater"));
 class LifePolicyRater extends Rater_1.default {
-    constructor(engine, logger) {
-        super(engine, logger);
+    constructor(ratingUpdater) {
+        super(ratingUpdater);
     }
     Rate(policy) {
-        this._logger.Log("Rating LIFE policy...");
-        this._logger.Log("Validating policy.");
+        this.Logger.Log("Rating LIFE policy...");
+        this.Logger.Log("Validating policy.");
         if (policy.DateOfBirth) {
-            this._logger.Log("Life policy must include Date of Birth.");
+            this.Logger.Log("Life policy must include Date of Birth.");
             return;
         }
         if (policy.DateOfBirth < (0, moment_1.default)().subtract(100, 'days').toDate()) {
-            this._logger.Log("Centenarians are not eligible for coverage.");
+            this.Logger.Log("Centenarians are not eligible for coverage.");
             return;
         }
         if (policy.Amount == 0) {
-            this._logger.Log("Life policy must include an Amount.");
+            this.Logger.Log("Life policy must include an Amount.");
             return;
         }
         let age = (0, moment_1.default)().year() - (0, moment_1.default)(policy.DateOfBirth).year();
@@ -32,10 +32,10 @@ class LifePolicyRater extends Rater_1.default {
         }
         const baseRate = policy.Amount * age / 200;
         if (policy.IsSmoker) {
-            this._engine.Rating = baseRate * 2;
+            this._ratingUpdater.UpdateRating(baseRate * 2);
             return;
         }
-        this._engine.Rating = baseRate;
+        this._ratingUpdater.UpdateRating(baseRate);
     }
 }
 exports.default = LifePolicyRater;

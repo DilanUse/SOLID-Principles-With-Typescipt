@@ -9,6 +9,7 @@ const LandPolicyRater_1 = __importDefault(require("./LandPolicyRater"));
 const LifePolicyRater_1 = __importDefault(require("./LifePolicyRater"));
 const FloodPolicyRater_1 = __importDefault(require("./FloodPolicyRater"));
 const UnknownPolicyRater_1 = __importDefault(require("./UnknownPolicyRater"));
+const RatingUpdater_1 = __importDefault(require("../RatingUpdater"));
 const raters = {
     AutoPolicyRater: AutoPolicyRater_1.default,
     LandPolicyRater: LandPolicyRater_1.default,
@@ -16,12 +17,12 @@ const raters = {
     FloodPolicyRater: FloodPolicyRater_1.default,
 };
 class RaterFactory {
-    Create(policy, engine) {
+    Create(policy, context) {
         try {
-            return new raters[`${PolicyType_1.default[policy.Type]}PolicyRater`](engine, engine.Logger);
+            return new raters[`${PolicyType_1.default[policy.Type]}PolicyRater`](new RatingUpdater_1.default(context.Engine));
         }
         catch (e) {
-            return new UnknownPolicyRater_1.default(engine, engine.Logger);
+            return new UnknownPolicyRater_1.default(new RatingUpdater_1.default(context.Engine));
         }
     }
 }

@@ -1,34 +1,28 @@
 import moment from 'moment';
 import { Policy } from './Policy';
-import PolicyType from './PolicyType';
-import ConsoleLogger from'./ConsoleLogger';
-import FilePolicySource from './FilePolicySource'
-import JsonPolicySerializer from './JsonPolicySerializer';
-import AutoPolicyRater from './policy-raters/AutoPolicyRater';
-import LandPolicyRater from './policy-raters/LandPolicyRater';
-import LifePolicyRater from './policy-raters/LifePolicyRater';
-import RaterFactory from './policy-raters/RaterFactory';
+import IRatingContext from './IRatingContext';
+import DefaultRatingContext from './DefaultRatingContext';
 
 export default class RatingEngine
 {
+    public Context: IRatingContext = new DefaultRatingContext();
     public Rating: number = 0;
-    public Logger: ConsoleLogger = new ConsoleLogger();
-    public PolicySource: FilePolicySource = new FilePolicySource();
-    public PolicySerializer: JsonPolicySerializer = new JsonPolicySerializer();
+
+    public constructor() {
+        this.Context.Engine = this;
+    }
 
     public Rate(): void
     {
-        this.Logger.Log("Starting rate.");
-        this.Logger.Log("Loading policy.");
+        this.Context.Log("Starting rate.");
+        this.Context.Log("Loading policy.");
 
-        const policyJson = this.PolicySource.GetPolicyFromSource();
-        const policy: Policy = this.PolicySerializer.GetPolicyFromJsonString(policyJson);
+        const policyJson = this.Context.LoadPolicyFromFile();
+        const policy: Policy = this.Context.GetPolicyFromJsonString(policyJson);
 
-        const factory = new RaterFactory();
-
-        const rater = factory.Create(policy, this);
+        const rater = this.Context.CreateRaterForPolicy(policy, this.Context);
         rater.Rate(policy);
 
-        this.Logger.Log("Rating completed.");
+        this.Context.Log("Rating completed.");
     }
 }

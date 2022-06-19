@@ -21,7 +21,7 @@ class RatingEngine {
         const policy = this.PolicySerializer.GetPolicyFromJsonString(policyJson);
         const factory = new RaterFactory_1.default();
         const rater = factory.Create(policy, this);
-        rater === null || rater === void 0 ? void 0 : rater.Rate(policy);
+        rater.Rate(policy);
         this.Logger.Log("Rating completed.");
     }
 }

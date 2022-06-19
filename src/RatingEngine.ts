@@ -27,7 +27,7 @@ export default class RatingEngine
         const factory = new RaterFactory();
 
         const rater = factory.Create(policy, this);
-        rater?.Rate(policy);
+        rater.Rate(policy);
 
         this.Logger.Log("Rating completed.");
     }

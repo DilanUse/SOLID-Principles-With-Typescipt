@@ -3,7 +3,7 @@ import ConsoleLogger from '../ConsoleLogger';
 import { Policy } from '../Policy';
 import Rater from './Rater';
 
-export default class LandPolicyRater extends Rater{
+export default class LandPolicyRater extends Rater {
     public constructor(engine: RatingEngine, logger: ConsoleLogger) {
         super(engine, logger)
     }

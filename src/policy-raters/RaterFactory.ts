@@ -5,6 +5,7 @@ import AutoPolicyRater from './AutoPolicyRater';
 import LandPolicyRater from './LandPolicyRater';
 import LifePolicyRater from './LifePolicyRater';
 import FloodPolicyRater from './FloodPolicyRater';
+import UnknownPolicyRater from './UnknownPolicyRater';
 import Rater from './Rater';
 
 const raters = {
@@ -19,7 +20,7 @@ export default class RaterFactory {
         try {
             return new raters[`${PolicyType[policy.Type]}PolicyRater`](engine, engine.Logger);
         } catch (e) {
-            return null;
+            return new UnknownPolicyRater(engine, engine.Logger);
         }
     }
 }

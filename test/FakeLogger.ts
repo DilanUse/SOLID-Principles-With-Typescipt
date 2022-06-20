@@ -1,4 +1,4 @@
-import ILogger from '../src/ILogger';
+import ILogger from '../src/Core/Interfaces/ILogger';
 
 export default class FakeLogger implements ILogger {
     public LoggedMessages: Array<string> = [];

@@ -1,1 +1,5 @@
-{"Type":"Land","BondAmount":200000,"Valuation":260000}
+{
+  "type": "Land",
+  "bondAmount": "1000000",
+  "valuation": "1100000"
+}

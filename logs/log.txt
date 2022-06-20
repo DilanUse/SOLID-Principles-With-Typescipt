@@ -1,0 +1,5 @@
+Starting rate.
+Loading policy.
+Rating LAND policy...
+Validating policy.
+Rating completed.

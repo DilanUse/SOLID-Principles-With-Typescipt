@@ -8,7 +8,7 @@ export default abstract class Rater {
     protected readonly _ratingUpdater: IRatingUpdater;
     public Logger: ILogger = new ConsoleLogger();
 
-    protected constructor(ratingUpdater: IRatingUpdater ) {
+    protected constructor(ratingUpdater: IRatingUpdater) {
         this._ratingUpdater = ratingUpdater;
     }
 

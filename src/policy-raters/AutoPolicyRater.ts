@@ -21,6 +21,7 @@ export default class AutoPolicyRater extends Rater {
             if (policy.Deductible < 500)
             {
                 this._ratingUpdater.UpdateRating(1000);
+                return;
             }
 
             this._ratingUpdater.UpdateRating(900);
